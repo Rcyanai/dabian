@@ -1,0 +1,97 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --color-brand-blue: #0066FF;
+  --color-brand-cyan: #00E5FF;
+  --color-surface: #F5F7FA;
+  --color-ink-primary: #111827;
+  --color-ink-secondary: #6B7280;
+  --color-ink-body: #333333;
+}
+
+@layer base {
+  body {
+    @apply bg-white text-ink-body font-sans antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-black tracking-tighter text-ink-primary uppercase;
+  }
+
+  p {
+    @apply text-ink-body leading-[1.5] text-[13px];
+  }
+}
+
+@layer components {
+  .slide-container {
+    @apply h-screen overflow-y-auto snap-y snap-mandatory scroll-smooth;
+  }
+
+  .slide-section {
+    @apply h-screen w-full snap-start relative overflow-hidden flex items-center justify-center bg-white;
+  }
+
+  .slide-content {
+    @apply relative w-full h-full max-w-[177.78vh] aspect-video flex flex-col overflow-hidden;
+    padding: clamp(2rem, 5vh, 4rem);
+  }
+
+  /* Strict Grid Alignment */
+  .grid-layout {
+    @apply grid grid-cols-12 gap-6 w-full h-full;
+  }
+
+  .bento-card {
+    @apply bg-white rounded-2xl border border-black/[0.03] shadow-[0_4px_20px_rgba(0,0,0,0.02)] p-8 transition-all hover:shadow-[0_8px_30px_rgba(0,102,255,0.05)] hover:border-brand-blue/10 flex flex-col;
+  }
+
+  .bento-card-dark {
+    @apply bg-ink-primary/40 backdrop-blur-md rounded-2xl border border-white/10 p-8 transition-all hover:border-brand-blue/30 flex flex-col text-white;
+  }
+
+  .capsule-tag {
+    @apply inline-flex items-center px-4 py-1 rounded-full text-[10px] font-bold uppercase tracking-[0.15em] border border-black/[0.06] bg-surface text-ink-secondary;
+  }
+
+  .minimal-line {
+    @apply h-[0.5px] bg-black/10 w-full;
+  }
+
+  /* Typography Contrast */
+  .display-title {
+    @apply text-[clamp(2.5rem,6vw,5rem)] leading-[1.2] font-black uppercase tracking-[-0.04em] text-ink-primary;
+  }
+
+  .sub-label {
+    @apply text-[10px] font-bold uppercase tracking-[0.3em] text-brand-blue mb-4 block;
+  }
+
+  .body-text {
+    @apply text-[13px] text-ink-body leading-[1.5] max-w-md;
+  }
+
+  /* Qwen Masking Effect */
+  .qwen-mask {
+    mask-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M50 0C22.4 0 0 22.4 0 50s22.4 50 50 50 50-22.4 50-50S77.6 0 50 0zm0 80c-16.6 0-30-13.4-30-30s13.4-30 30-30 30 13.4 30 30-13.4 30-30 30z" fill="black"/></svg>');
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    mask-position: center;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 3px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-brand-blue/10 rounded-full hover:bg-brand-blue/30;
+}
