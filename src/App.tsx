@@ -5,7 +5,6 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import pptxgen from 'pptxgenjs';
 import { 
   ArrowRight, 
   ExternalLink, 
@@ -21,8 +20,7 @@ import {
   TrendingUp, 
   Layers,
   ChevronRight,
-  Globe,
-  Download
+  Globe
 } from 'lucide-react';
 
 // --- Components ---
@@ -48,9 +46,12 @@ const LinkPreviewCard = ({ url, title, description, icon: Icon, variant = 'light
       </div>
       <h4 className={`text-lg font-black ${isDark ? 'text-white group-hover:text-brand-cyan' : 'text-ink-primary group-hover:text-brand-blue'} mb-2 uppercase tracking-tight transition-colors relative z-10`}>{title}</h4>
       {description && <p className={`text-[11px] ${isDark ? 'text-white/70' : 'text-ink-secondary'} leading-relaxed uppercase tracking-wider mb-4 relative z-10`}>{description}</p>}
-      <div className={`pt-4 ${isDark ? 'border-white/10' : 'border-black/5'} flex items-center gap-2 relative z-10`}>
-        <Globe size={12} className={isDark ? 'text-brand-cyan' : 'text-brand-blue/40'} />
-        <span className={`text-[10px] font-mono ${isDark ? 'text-brand-cyan' : 'text-brand-blue/60'} truncate`}>{url.replace('https://', '')}</span>
+      <div className={`pt-4 ${isDark ? 'border-white/10' : 'border-black/5'} flex items-center justify-between relative z-10`}>
+        <div className="flex items-center gap-2">
+          <Globe size={12} className={isDark ? 'text-brand-cyan' : 'text-brand-blue/40'} />
+          <span className={`text-[10px] font-mono ${isDark ? 'text-brand-cyan' : 'text-brand-blue/60'} truncate max-w-[150px]`}>{url.replace('https://', '')}</span>
+        </div>
+        <span className={`text-[10px] font-bold ${isDark ? 'text-brand-cyan' : 'text-brand-blue'} uppercase tracking-widest`}>点击查看更多</span>
       </div>
     </a>
   );
@@ -227,28 +228,42 @@ const Slide2 = () => {
             </div>
           </div>
 
-          <div className="bento-card bg-brand-blue text-white border-none">
-            <div className="flex items-center gap-3 mb-8">
-              <div className="w-10 h-10 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center">
-                <GraduationCap size={20} />
+          <div className="bento-card bg-brand-blue text-white border-none relative flex flex-col justify-between p-10">
+            <div>
+              <div className="flex items-center gap-3 mb-8">
+                <div className="w-12 h-12 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center">
+                  <GraduationCap size={24} />
+                </div>
+                <h3 className="text-2xl font-bold text-white">教育背景</h3>
               </div>
-              <h3 className="text-xl font-bold">教育背景</h3>
+              <div className="space-y-8">
+                <div>
+                  <Capsule className="bg-white/10 border-white/20 text-white mb-3">本科 | 合肥工业大学 (211/双一流)</Capsule>
+                  <p className="text-base font-bold mb-1 text-white">高分子材料与工程</p>
+                  <p className="text-[11px] text-white/60 uppercase tracking-wider">国家卓越工程师计划</p>
+                </div>
+                <div className="w-full h-px bg-white/10" />
+                <div>
+                  <Capsule className="bg-white/10 border-white/20 text-white mb-3">硕士 | 浙江理工大学</Capsule>
+                  <p className="text-base font-bold mb-1 text-white">心理学 (视觉感知工程)</p>
+                  <p className="text-[11px] text-white/60 uppercase tracking-wider">研究生一等奖学金 | SCD核心期刊</p>
+                </div>
+              </div>
             </div>
-            <div className="space-y-8">
-              <div>
-                <Capsule className="bg-white/10 border-white/20 text-white mb-3">本科 | 合肥工业大学 (211/双一流)</Capsule>
-                <p className="text-sm font-bold mb-1">高分子材料与工程</p>
-                <p className="text-[10px] text-white/60 uppercase tracking-wider">国家卓越工程师计划</p>
-              </div>
-              <div className="w-full h-px bg-white/10" />
-              <div>
-                <Capsule className="bg-white/10 border-white/20 text-white mb-3">硕士 | 浙江理工大学</Capsule>
-                <p className="text-sm font-bold mb-1">心理学 (视觉感知工程)</p>
-                <p className="text-[10px] text-white/60 uppercase tracking-wider">研究生一等奖学金 | SCD核心期刊</p>
-              </div>
-              <p className="text-xs text-white/80 leading-relaxed italic border-l-2 border-white/20 pl-4">
+            
+            <div className="mt-12 pt-8 border-t border-white/10">
+              <p className="text-sm text-white/80 leading-relaxed italic border-l-2 border-white/20 pl-4 mb-8">
                 "构筑了对图像审美、用户体验极其敏锐的拆解与洞察力。"
               </p>
+              
+              {/* Self Evaluation Badge - More Prominent */}
+              <div className="bg-white/20 backdrop-blur-xl border-2 border-white/30 p-6 rounded-2xl shadow-2xl transform hover:scale-105 transition-transform">
+                <p className="text-[11px] uppercase tracking-[0.3em] text-white/70 mb-2 font-bold">Performance Review</p>
+                <div className="flex items-end gap-2">
+                  <span className="text-5xl font-black text-white leading-none">自评 3.75</span>
+                  <div className="w-3 h-3 bg-brand-cyan rounded-full mb-2 animate-pulse" />
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -397,57 +412,63 @@ const Slide4 = () => (
 );
 
 const Slide5 = () => (
-  <section className="slide-section bg-ink-primary text-white">
+  <section className="slide-section bg-surface text-ink-primary">
     <div className="slide-content">
-      <SectionTitle title="顶层战略重塑" subtitle="Strategy: From Scale to Boutique" titleColor="text-white" />
+      <SectionTitle title="战略规划" subtitle="Strategy: From Scale to Boutique" />
       
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center flex-grow">
         <div className="space-y-12">
           <div>
-            <h3 className="text-3xl font-extrabold mb-6 tracking-tight text-white">从“规模化扩张”到<br /><span className="text-brand-cyan">“精品化数据演进架构”</span></h3>
-            <p className="text-sm text-white/60 leading-relaxed max-w-md">
-              摒弃单纯数量堆砌，确立基于160万数据规模的“精品化”路线。重新定义RLHF与DPO是从“60分可用”向“90分卓越”跨越的核心质量提升工具。
+            <h3 className="text-3xl font-extrabold mb-6 tracking-tight text-ink-primary">从“规模化扩张”到<br /><span className="text-brand-blue">“精品化数据演进架构”</span></h3>
+            <p className="text-sm text-ink-secondary leading-relaxed max-w-md">
+              本方案设定的总体数据规模为160万条，采用四类数据的差异化配置策略。这一结构设计体现了”基础优先、质量递进、精准投入”的资源配置原则。
             </p>
           </div>
           
-          <div className="space-y-6">
-            <div className="flex items-start gap-4">
-              <div className="w-8 h-8 rounded-full border border-brand-cyan flex items-center justify-center text-brand-cyan font-bold text-xs shrink-0">01</div>
-              <div>
-                <h4 className="text-sm font-bold uppercase mb-2 text-white">广度寻源 / Width</h4>
-                <p className="text-xs text-white/40 mb-4">双重寻源 → 链式扩散 → 智能筛选 → 全局去重自动化闭环。</p>
-                <LinkPreviewCard title="广度寻源链路" url="https://alidocs.dingtalk.com/i/nodes/a9E05BDRVQRkezKGCpwRZP42J63zgkYA?utm_scene=person_space" variant="dark" />
-              </div>
+          <div className="grid grid-cols-2 gap-6">
+            <div className="p-6 bg-white rounded-2xl border border-black/5 shadow-sm">
+              <h4 className="text-xs font-bold uppercase mb-2 text-brand-blue">Postrain (75%)</h4>
+              <div className="text-2xl font-black text-ink-primary mb-1">120万条</div>
+              <p className="text-[10px] text-ink-secondary leading-relaxed">基础训练数据支撑模型基本生成能力。</p>
             </div>
-            <div className="flex items-start gap-4">
-              <div className="w-8 h-8 rounded-full border border-brand-blue flex items-center justify-center text-brand-blue font-bold text-xs shrink-0">02</div>
-              <div>
-                <h4 className="text-sm font-bold uppercase mb-2 text-white">深度雕琢 / Depth</h4>
-                <p className="text-xs text-white/40 mb-4">定向采集 → 人工SFT → 三级质检机制全量保障高审美。</p>
-                <LinkPreviewCard title="深度雕琢链路" url="https://alidocs.dingtalk.com/i/nodes/N7dx2rn0Jbdd0md5iQQwp1qpWMGjLRb3?utm_scene=person_space" variant="dark" />
-              </div>
+            <div className="p-6 bg-white rounded-2xl border border-black/5 shadow-sm">
+              <h4 className="text-xs font-bold uppercase mb-2 text-brand-cyan">SFT (18.75%)</h4>
+              <div className="text-2xl font-black text-ink-primary mb-1">30万条</div>
+              <p className="text-[10px] text-ink-secondary leading-relaxed">用于模型的精细化调优和指令遵循能力。</p>
+            </div>
+            <div className="p-6 bg-white rounded-2xl border border-black/5 shadow-sm">
+              <h4 className="text-xs font-bold uppercase mb-2 text-indigo-500">RLHF (5%)</h4>
+              <div className="text-2xl font-black text-ink-primary mb-1">8万条</div>
+              <p className="text-[10px] text-ink-secondary leading-relaxed">用于人类反馈强化学习的偏好优化。</p>
+            </div>
+            <div className="p-6 bg-white rounded-2xl border border-black/5 shadow-sm">
+              <h4 className="text-xs font-bold uppercase mb-2 text-emerald-500">DPO (1.25%)</h4>
+              <div className="text-2xl font-black text-ink-primary mb-1">2万条</div>
+              <p className="text-[10px] text-ink-secondary leading-relaxed">作为直接偏好优化的高效训练样本。</p>
             </div>
           </div>
         </div>
 
         <div className="relative hidden lg:block">
-          {/* Abstract 3D Strategy Visualization */}
-          <div className="aspect-square bg-white/5 rounded-full border border-white/10 flex items-center justify-center overflow-hidden">
-            <motion.div 
-              animate={{ rotate: 360 }}
-              transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
-              className="absolute inset-0 opacity-10"
-              style={{ backgroundImage: 'radial-gradient(circle, #00E5FF 1px, transparent 1px)', backgroundSize: '20px 20px' }}
-            />
+          {/* Abstract Data Visualization */}
+          <div className="aspect-square bg-white rounded-full border border-black/5 flex items-center justify-center overflow-hidden shadow-xl">
             <div className="z-10 text-center space-y-4">
-              <div className="text-6xl font-black text-brand-cyan">1.6M</div>
-              <div className="text-[10px] font-bold uppercase tracking-[0.4em] text-white/40">Boutique Data Scale</div>
+              <div className="text-6xl font-black text-brand-blue">1.6M</div>
+              <div className="text-[10px] font-bold uppercase tracking-[0.4em] text-ink-secondary">Total Data Scale</div>
               <div className="flex justify-center gap-2">
                 <div className="w-2 h-2 rounded-full bg-brand-blue" />
                 <div className="w-2 h-2 rounded-full bg-brand-cyan" />
-                <div className="w-2 h-2 rounded-full bg-white" />
+                <div className="w-2 h-2 rounded-full bg-indigo-500" />
+                <div className="w-2 h-2 rounded-full bg-emerald-500" />
               </div>
             </div>
+            {/* Simple Pie Chart Visualization using SVG */}
+            <svg className="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 100 100">
+              <circle cx="50" cy="50" r="40" fill="transparent" stroke="#0066FF" strokeWidth="20" strokeDasharray="188.5 251.3" strokeDashoffset="0" />
+              <circle cx="50" cy="50" r="40" fill="transparent" stroke="#00E5FF" strokeWidth="20" strokeDasharray="47.1 251.3" strokeDashoffset="-188.5" />
+              <circle cx="50" cy="50" r="40" fill="transparent" stroke="#6366f1" strokeWidth="20" strokeDasharray="12.6 251.3" strokeDashoffset="-235.6" />
+              <circle cx="50" cy="50" r="40" fill="transparent" stroke="#10b981" strokeWidth="20" strokeDasharray="3.1 251.3" strokeDashoffset="-248.2" />
+            </svg>
           </div>
         </div>
       </div>
@@ -459,7 +480,7 @@ const Slide6 = () => (
   <section className="slide-section bg-surface text-ink-primary">
     <div className="slide-content">
       <div className="mb-16">
-        <h2 className="text-5xl md:text-7xl font-extrabold tracking-tighter mb-4 text-ink-primary">攻坚数据荒</h2>
+        <h2 className="text-5xl md:text-7xl font-extrabold tracking-tighter mb-4 text-ink-primary">寻源：攻坚数据荒</h2>
         <p className="text-sm uppercase tracking-[0.2em] text-brand-blue font-semibold">Execution: The Data Ocean</p>
       </div>
       
@@ -501,65 +522,78 @@ const Slide6 = () => (
 );
 
 const Slide7 = () => (
-  <section className="slide-section bg-ink-primary text-white relative">
-    {/* Dark Background with subtle grid */}
-    <div className="absolute inset-0 z-0 opacity-20 pointer-events-none">
-      <div className="absolute inset-0 bg-ink-primary" />
+  <section className="slide-section bg-surface text-ink-primary relative">
+    {/* Light Background with subtle grid */}
+    <div className="absolute inset-0 z-0 opacity-5 pointer-events-none">
+      <div className="absolute inset-0 bg-surface" />
       <div className="absolute inset-0" 
         style={{ 
-          backgroundImage: `linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)`,
+          backgroundImage: `linear-gradient(#000 1px, transparent 1px), linear-gradient(90deg, #000 1px, transparent 1px)`,
           backgroundSize: '40px 40px'
         }} 
       />
     </div>
 
     <div className="slide-content z-10">
-      <SectionTitle title="前沿技术落地" subtitle="Innovation: Agent Pipeline" titleColor="text-white" />
+      <SectionTitle title="寻源：工程化流水线" subtitle="Innovation: Agent Pipeline" />
       
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 flex-grow">
-          <div className="space-y-6">
-            <div className="bento-card-dark p-8 border-white/5">
-              <h3 className="text-xl font-black mb-6 flex items-center gap-3 text-white">
-                <Cpu size={24} className="text-brand-cyan" />
+      <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 flex-grow items-stretch">
+          <div className="lg:col-span-3 space-y-6">
+            <div className="bento-card p-10 h-full flex flex-col">
+              <h3 className="text-2xl font-black mb-8 flex items-center gap-4 text-ink-primary">
+                <Cpu size={32} className="text-brand-blue" />
                 自动化寻源管线重构
               </h3>
-              <p className="text-[13px] text-white/60 leading-relaxed mb-8">
+              <p className="text-base text-ink-secondary leading-relaxed mb-10">
                 针对小红书等高防爬社交平台，主导规划并落地了基于大模型的自动化寻源 Agent 开发。
               </p>
               
-              <div className="space-y-6">
-                <div className="p-6 bg-white/5 rounded-2xl border border-white/10 relative overflow-hidden">
-                  <div className="absolute top-0 left-0 w-1 h-full bg-brand-blue" />
-                  <h4 className="text-xs font-bold uppercase text-brand-blue mb-2">阶段一：Channel 获取的无人化</h4>
-                  <p className="text-[12px] text-white/40 leading-relaxed">
-                    部署主 Agent 持续爬取博主主页链接，汇总传递至子 Agent 进行全局去重与整合，生成标准化目标源。
-                  </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 flex-grow">
+                <div className="p-8 bg-white rounded-3xl border border-black/5 shadow-sm relative overflow-hidden flex flex-col justify-between">
+                  <div className="absolute top-0 left-0 w-1.5 h-full bg-brand-blue" />
+                  <div>
+                    <h4 className="text-sm font-bold uppercase text-brand-blue mb-4 tracking-wider">阶段一：Channel 获取的无人化</h4>
+                    <p className="text-sm text-ink-secondary leading-relaxed">
+                      部署主 Agent 持续爬取博主主页链接，汇总传递至子 Agent 进行全局去重与整合，生成标准化目标源。
+                    </p>
+                  </div>
                 </div>
-                <div className="p-6 bg-white/5 rounded-2xl border border-white/10 relative overflow-hidden">
-                  <div className="absolute top-0 left-0 w-1 h-full bg-brand-cyan" />
-                  <h4 className="text-xs font-bold uppercase text-brand-cyan mb-2">阶段二：URL 提取与规则强过滤</h4>
-                  <p className="text-[12px] text-white/40 leading-relaxed">
-                    主 Agent 介入对产能数据进行清洗、格式转化，并严格执行算法预设过滤规则（如发帖量阈值），最终由子 Agent 输出绝对纯净的高质量目标帖 URL，彻底替代人工低效初筛。
-                  </p>
+                <div className="p-8 bg-white rounded-3xl border border-black/5 shadow-sm relative overflow-hidden flex flex-col justify-between">
+                  <div className="absolute top-0 left-0 w-1.5 h-full bg-brand-cyan" />
+                  <div>
+                    <h4 className="text-sm font-bold uppercase text-brand-cyan mb-4 tracking-wider">阶段二：URL 提取与规则强过滤</h4>
+                    <p className="text-sm text-ink-secondary leading-relaxed">
+                      主 Agent 介入对产能数据进行清洗、格式转化，并严格执行算法预设过滤规则，最终由子 Agent 输出绝对纯净的高质量目标帖 URL。
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="bento-card-dark flex flex-col justify-center items-center text-center p-12 relative overflow-hidden border-white/5">
+          <div className="lg:col-span-2 bento-card flex flex-col justify-center items-center text-center p-12 relative overflow-hidden bg-brand-blue/5 border-brand-blue/10">
             <div className="relative z-10">
-              <div className="relative w-48 h-48 mb-8 mx-auto">
+              <div className="relative w-64 h-64 mb-12 mx-auto">
                 <motion.div 
                   animate={{ rotate: 360 }}
-                  transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                  className="absolute inset-0 border-2 border-dashed border-brand-cyan/30 rounded-full"
+                  transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+                  className="absolute inset-0 border-4 border-dashed border-brand-blue/10 rounded-full"
+                />
+                <motion.div 
+                  animate={{ rotate: -360 }}
+                  transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+                  className="absolute inset-4 border-2 border-brand-blue/20 rounded-full"
                 />
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <Cpu size={48} className="text-brand-cyan" />
+                  <Cpu size={64} className="text-brand-blue" />
                 </div>
               </div>
-              <h4 className="text-lg font-bold mb-2 uppercase tracking-tight text-white">AI Agent Efficiency</h4>
-              <p className="text-xs text-white/40 uppercase tracking-widest">Replacing Manual Bottlenecks with Intelligence</p>
+              <h4 className="text-2xl font-black mb-4 uppercase tracking-tight text-ink-primary">AI Agent Efficiency</h4>
+              <p className="text-sm text-ink-secondary uppercase tracking-[0.3em] font-bold">Intelligence-Driven Pipeline</p>
+              <div className="mt-8 flex justify-center gap-4">
+                <div className="px-4 py-2 bg-brand-blue text-white rounded-full text-[10px] font-bold uppercase tracking-widest">Automation</div>
+                <div className="px-4 py-2 bg-white border border-brand-blue/20 text-brand-blue rounded-full text-[10px] font-bold uppercase tracking-widest">Precision</div>
+              </div>
             </div>
           </div>
       </div>
@@ -571,7 +605,7 @@ const Slide8 = () => (
   <section className="slide-section bg-surface text-ink-primary">
     <div className="slide-content">
       <div className="mb-16">
-        <h2 className="display-title text-ink-primary mb-4">突破认知极限</h2>
+        <h2 className="display-title text-ink-primary mb-4">采集：美学知识图谱</h2>
         <p className="text-[11px] uppercase tracking-[0.4em] text-brand-blue font-bold">Precision: Fine-Grained Knowledge</p>
         <div className="h-[0.5px] bg-black/10 w-full mt-10" />
       </div>
@@ -631,48 +665,48 @@ const Slide8 = () => (
 );
 
 const Slide9 = () => (
-  <section className="slide-section bg-ink-primary text-white">
+  <section className="slide-section bg-surface text-ink-primary">
     <div className="slide-content">
-      <SectionTitle title="清扫业务卡点" subtitle="Management: Clearing Blockers" titleColor="text-white" />
+      <SectionTitle title="管线：清扫业务卡点" subtitle="Management: Clearing Blockers" />
       
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 flex-grow items-stretch">
         <div className="flex flex-col">
-          <div className="bento-card-dark flex-grow">
+          <div className="bento-card flex-grow">
             <div className="flex items-center gap-3 mb-6">
               <div className="w-10 h-10 bg-brand-blue rounded-full flex items-center justify-center text-white">
                 <ShieldCheck size={20} />
               </div>
-              <h3 className="text-xl font-bold text-white">资源协调与冲突消解</h3>
+              <h3 className="text-xl font-bold text-ink-primary">资源协调与冲突消解</h3>
             </div>
-            <p className="text-sm text-white/60 leading-relaxed mb-8">
+            <p className="text-sm text-ink-secondary leading-relaxed mb-8">
               在面临算法需求突增与各项目线人力冲突时，建立统一的需求调控中枢。通过与算法对齐标准，实现复杂供应链的弹性调度。
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-auto">
-              <LinkPreviewCard title="中台需求表" url="https://aliyuque.antfin.com/yo59wy/kg7h1z/yzhvf3d1fnveo9zh#RZTp" variant="dark" />
-              <LinkPreviewCard title="通义需求表" url="https://aliyuque.antfin.com/yo59wy/kg7h1z/zobreck3id4u2sg6#KzPA" variant="dark" />
+              <LinkPreviewCard title="中台需求表" url="https://aliyuque.antfin.com/yo59wy/kg7h1z/yzhvf3d1fnveo9zh#RZTp" variant="light" />
+              <LinkPreviewCard title="通义需求表" url="https://aliyuque.antfin.com/yo59wy/kg7h1z/zobreck3id4u2sg6#KzPA" variant="light" />
             </div>
           </div>
         </div>
 
         <div className="flex flex-col">
-          <div className="bento-card-dark border-brand-blue/20 bg-brand-blue/5 flex-grow">
+          <div className="bento-card border-brand-blue/20 bg-brand-blue/5 flex-grow">
             <div className="flex items-center gap-3 mb-6">
               <div className="w-10 h-10 bg-brand-blue rounded-full flex items-center justify-center text-white">
                 <Target size={20} />
               </div>
-              <h3 className="text-xl font-bold text-white">标准歧义防线</h3>
+              <h3 className="text-xl font-bold text-ink-primary">标准歧义防线</h3>
             </div>
-            <p className="text-sm text-white/60 leading-relaxed mb-6">
+            <p className="text-sm text-ink-secondary leading-relaxed mb-6">
               建立严密的向上反馈机制与横向拉齐流程。在面对诸如“caption精标”等复杂任务时，敏锐识别标注理解偏差，迅速拉齐算法需求并重构规则文档。
             </p>
             <div className="space-y-6 mt-auto">
-              <div className="p-6 bg-white/5 rounded-2xl border border-white/10 flex items-center justify-between">
+              <div className="p-6 bg-white rounded-2xl border border-black/5 flex items-center justify-between shadow-sm">
                 <div>
                   <h4 className="text-xs font-bold text-brand-blue uppercase tracking-widest mb-1">供应商试标合格率</h4>
-                  <div className="text-3xl font-black text-white">跃升至 90% +</div>
+                  <div className="text-3xl font-black text-ink-primary">跃升至 90% +</div>
                 </div>
                 <div className="shrink-0">
-                  <LinkPreviewCard title="标注进度表" url="https://alidocs.dingtalk.com/i/nodes/vy20BglGWOdd4wd6iqXPGRXkVA7depqY?utm_scene=person_space" variant="dark" />
+                  <LinkPreviewCard title="标注进度表" url="https://alidocs.dingtalk.com/i/nodes/vy20BglGWOdd4wd6iqXPGRXkVA7depqY?utm_scene=person_space" variant="light" />
                 </div>
               </div>
             </div>
@@ -686,7 +720,7 @@ const Slide9 = () => (
 const Slide10 = () => (
   <section className="slide-section bg-surface">
     <div className="slide-content">
-      <SectionTitle title="组织资产沉淀" subtitle="Methodology: Organizational Asset" />
+      <SectionTitle title="共建：组织资产沉淀" subtitle="Methodology: Organizational Asset" />
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 flex-grow">
         <div className="bento-card flex flex-col justify-between">
@@ -728,126 +762,87 @@ const Slide10 = () => (
 );
 
 const Slide11 = () => (
-  <section className="slide-section bg-ink-primary text-white">
+  <section className="slide-section bg-surface text-ink-primary">
     <div className="slide-content">
-      <SectionTitle title="未来战略蓝图 & 终局收束" subtitle="Future Roadmap & Closing" titleColor="text-white" />
+      <SectionTitle title="展望：数据寻源与业务寻源并行" subtitle="Future Roadmap & Closing" />
       
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
         {[
-          { title: "多模态与多视角数据深耕", desc: "针对性攻克大模型物理与空间逻辑短板。全面推进 Avatar 数字人高拟真视频数据建设及视频数据集，打通多模态策略融合的数据大动脉。" },
-          { title: "质寻源管线升级", desc: "持续深化 openclaw 以及 skills Agent在寻源中的自动化应用；推进多模型协同（VLM），加速高质量提示词自动化构建，将人工精力彻底释放到最高维度的价值判定上。" },
+          { title: "多模态与多视角数据深耕", desc: "针对性攻克大模型物理与空间逻辑短板。全面推进从 Web 到 App 寻源的终端路径，打通多模态策略融合的数据大动脉。" },
+          { title: "质寻源管线升级", desc: "持续深化 openclaw 以及 skills Agent在寻源中的自动化应用；推进多模型协同（VLM），加速高质量提示词自动化构建。" },
           { title: "供应商能力认证体系进阶", desc: "针对百人外部团队，构建更为严格的能力矩阵与认证通道，打造高并发、高可用率的数据加工铁军。" }
         ].map((item, i) => (
-          <div key={i} className="bento-card-dark border-white/5">
-            <h4 className="text-sm font-black text-brand-cyan uppercase tracking-widest mb-4">0{i+1} / {item.title}</h4>
-            <p className="text-[12px] text-white/80 leading-relaxed">{item.desc}</p>
+          <div key={i} className="bento-card">
+            <h4 className="text-sm font-black text-brand-blue uppercase tracking-widest mb-4">0{i+1} / {item.title}</h4>
+            <p className="text-[12px] text-ink-secondary leading-relaxed">{item.desc}</p>
           </div>
         ))}
       </div>
 
-      <div className="mt-auto pt-16 border-t border-white/10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-end">
-          <div className="space-y-10">
-            <p className="text-xl md:text-2xl font-bold leading-relaxed tracking-tight text-white italic border-l-4 border-brand-cyan pl-8">
-              "在 AIGC 愈发残酷的技术军备竞赛中，算力与架构决定了模型天花板的理论上限。然而，在生成变得廉价，只有审美偏好、判断力与深邃世界知识的数据基座，才是支撑大模型真正触碰甚至击穿该上限的唯一现实阶梯。我将持续以工程的严密与感知的敏锐，为业务的持续爆发注入最高纯度的燃料。"
-            </p>
-            <LinkPreviewCard 
-              title="Team Space" 
-              description="Strategic Data Asset Management"
-              url="https://alidocs.dingtalk.com/i/nodes/YMyQA2dXW7gYo6Mzcpz9DDdvWzlwrZgb?utm_scene=team_space"
-              icon={Layers}
-              variant="dark"
-            />
+      <div className="mt-auto pt-16 border-t border-black/5">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-stretch">
+          <div className="flex flex-col justify-center">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div className="bg-brand-blue p-8 rounded-3xl shadow-xl border border-white/10 hover:-translate-y-2 transition-all group relative overflow-hidden h-full flex flex-col">
+                <div className="absolute top-0 right-0 w-24 h-24 bg-white/5 rounded-full -mr-12 -mt-12 blur-2xl" />
+                <div className="flex items-center gap-4 mb-6 relative z-10">
+                  <div className="p-3 bg-white/20 rounded-xl text-white">
+                    <Target size={24} />
+                  </div>
+                  <h4 className="text-base font-bold text-white leading-tight">模型数据寻源到<br />产品业务寻源</h4>
+                </div>
+                <p className="text-[11px] text-white/70 uppercase tracking-wider mb-6 relative z-10 flex-grow">以【千问荷尔蒙异常流量】为例</p>
+                <a 
+                  href="https://alidocs.dingtalk.com/i/nodes/2Amq4vjg89jyZdNnCQ6D2dqEW3kdP0wQ?utm_scene=person_space" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-between text-[11px] font-bold text-brand-cyan uppercase tracking-widest relative z-10 group/link"
+                >
+                  <span>点击查看更多</span>
+                  <ArrowRight size={16} className="group-hover/link:translate-x-1 transition-transform" />
+                </a>
+              </div>
+              <div className="bg-brand-blue p-8 rounded-3xl shadow-xl border border-white/10 hover:-translate-y-2 transition-all group relative overflow-hidden h-full flex flex-col">
+                <div className="absolute top-0 right-0 w-24 h-24 bg-white/5 rounded-full -mr-12 -mt-12 blur-2xl" />
+                <div className="flex items-center gap-4 mb-6 relative z-10">
+                  <div className="p-3 bg-white/20 rounded-xl text-white">
+                    <Layers size={24} />
+                  </div>
+                  <h4 className="text-base font-bold text-white leading-tight">从图片/视频寻源到<br />文本寻源</h4>
+                </div>
+                <p className="text-[11px] text-white/70 uppercase tracking-wider mb-6 relative z-10 flex-grow">以【可信源摸底】为例</p>
+                <a 
+                  href="https://alidocs.dingtalk.com/i/nodes/EpGBa2Lm8aZxe5myCD6KNg5vWgN7R35y?utm_scene=person_space" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-between text-[11px] font-bold text-brand-cyan uppercase tracking-widest relative z-10 group/link"
+                >
+                  <span>点击查看更多</span>
+                  <ArrowRight size={16} className="group-hover/link:translate-x-1 transition-transform" />
+                </a>
+              </div>
+            </div>
           </div>
-          <div className="text-right">
-            <h2 className="display-title text-brand-cyan opacity-5 mb-[-1vw]">ARCHITECT</h2>
-            <p className="text-3xl font-black uppercase tracking-[0.2em] text-white">闫睿琛</p>
-            <p className="text-[11px] font-bold uppercase tracking-[0.4em] text-brand-cyan mt-4">AIGC Data Architect</p>
+
+          <div className="flex flex-col justify-center space-y-12">
+            <p className="text-xl md:text-2xl font-bold leading-relaxed tracking-tight text-ink-primary italic border-l-4 border-brand-blue pl-8 py-2">
+              "在 AIGC 愈发残酷的技术军备竞赛中，算力与架构决定了模型天花板的理论上限。然而，在生成变得廉价，只有审美偏好、判断力与深邃世界知识的数据基座，才是支撑大模型真正触碰甚至击穿该上限的唯一现实阶梯。"
+            </p>
+            
+            <div className="flex items-center justify-end gap-8">
+              <div className="w-16 h-px bg-black/10" />
+              <div className="text-right">
+                <h2 className="display-title text-brand-blue opacity-5 mb-[-1vw] select-none">ARCHITECT</h2>
+                <p className="text-4xl font-black uppercase tracking-[0.2em] text-ink-primary">闫睿琛</p>
+                <p className="text-[11px] font-bold uppercase tracking-[0.4em] text-brand-blue mt-4">AIGC Data Architect</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
 );
-
-// --- PPT Export Logic ---
-
-const exportToPpt = () => {
-  const pptx = new pptxgen();
-  pptx.layout = 'LAYOUT_16x9';
-  pptx.defineSlideMaster({
-    title: 'MASTER_SLIDE',
-    background: { color: 'FFFFFF' },
-  });
-
-  // Slide 1: Cover
-  let slide1 = pptx.addSlide();
-  slide1.addText('Qwen 2026', { x: 0.5, y: 0.5, fontSize: 14, color: '0066FF', bold: true });
-  slide1.addText('千问大模型\n高质量数据基座\n构建者与把控者', { x: 0.5, y: 1.5, fontSize: 44, bold: true, color: '111827' });
-  slide1.addText('汇报人: 闫睿琛\n主管: 韩松直', { x: 6.5, y: 4.5, fontSize: 18, align: 'right', bold: true });
-
-  // Slide 2: Capability
-  let slide2 = pptx.addSlide();
-  slide2.addText('能力画像', { x: 0.5, y: 0.3, fontSize: 32, bold: true });
-  slide2.addText('阿里千问文生图数据采集项目负责人\n操盘百人众包军团，全链路赋能 Z-image 及 Qwen-image 2.0', { x: 0.5, y: 1.2, fontSize: 14, color: '6B7280' });
-  slide2.addText('教育背景:\n本科 | 合肥工业大学 (211/双一流)\n硕士 | 浙江理工大学', { x: 0.5, y: 3.5, fontSize: 16, bold: true });
-
-  // Slide 3: About Me
-  let slide3 = pptx.addSlide();
-  slide3.background = { color: '111827' };
-  slide3.addText('关于我', { x: 0.5, y: 0.3, fontSize: 32, bold: true, color: 'FFFFFF' });
-  slide3.addText('职场实战:\n- 科大讯飞 | 讯飞星火\n- 海康威视 | 萤石\n- 网易游戏 | 雷火', { x: 0.5, y: 1.5, fontSize: 14, color: 'FFFFFF' });
-  slide3.addText('艺术积淀:\n- Awards (AIGC): 通义万相入围奖等\n- Photography Exhibitions: 卢浮宫艺术周参展等', { x: 5.0, y: 1.5, fontSize: 14, color: 'FFFFFF' });
-
-  // Slide 4: Results
-  let slide4 = pptx.addSlide();
-  slide4.addText('核心战果', { x: 0.5, y: 0.3, fontSize: 32, bold: true });
-  slide4.addText('1. 高质量数据寻源: 解决预训练数据荒\n2. 高审美数据采集: 攻克SFT审美瓶颈\n3. 底座模型深度赋能: Qwen-Image 2.0 突破', { x: 0.5, y: 1.5, fontSize: 18 });
-
-  // Slide 5: Strategy
-  let slide5 = pptx.addSlide();
-  slide5.background = { color: '111827' };
-  slide5.addText('顶层战略重塑', { x: 0.5, y: 0.3, fontSize: 32, bold: true, color: 'FFFFFF' });
-  slide5.addText('从“规模化扩张”到“精品化数据演进架构”', { x: 0.5, y: 1.5, fontSize: 24, bold: true, color: '00E5FF' });
-  slide5.addText('1.6M Boutique Data Scale', { x: 0.5, y: 3.0, fontSize: 20, color: 'FFFFFF' });
-
-  // Slide 6: Execution
-  let slide6 = pptx.addSlide();
-  slide6.addText('攻坚数据荒', { x: 0.5, y: 0.3, fontSize: 32, bold: true });
-  slide6.addText('基础资产: 3.1亿+ | 视频模态: 865万+\n社媒生态: 786万+ | PDF资源: 2400万+', { x: 0.5, y: 2.0, fontSize: 20, bold: true, color: '0066FF' });
-
-  // Slide 7: Agent
-  let slide7 = pptx.addSlide();
-  slide7.background = { color: '111827' };
-  slide7.addText('前沿技术落地', { x: 0.5, y: 0.3, fontSize: 32, bold: true, color: 'FFFFFF' });
-  slide7.addText('自动化寻源管线重构 (Agent Pipeline)', { x: 0.5, y: 1.5, fontSize: 20, color: '00E5FF' });
-  slide7.addText('阶段一: Channel 获取无人化\n阶段二: URL 提取与规则强过滤', { x: 0.5, y: 2.5, fontSize: 16, color: 'FFFFFF' });
-
-  // Slide 8: Knowledge
-  let slide8 = pptx.addSlide();
-  slide8.addText('突破认知极限', { x: 0.5, y: 0.3, fontSize: 32, bold: true });
-  slide8.addText('120K+ 高清图像支撑艺术设计冲榜\n46个复杂多品类真实图采集战役', { x: 0.5, y: 2.0, fontSize: 18 });
-
-  // Slide 9: Blockers
-  let slide9 = pptx.addSlide();
-  slide9.background = { color: '111827' };
-  slide9.addText('清扫业务卡点', { x: 0.5, y: 0.3, fontSize: 32, bold: true, color: 'FFFFFF' });
-  slide9.addText('资源协调与冲突消解\n标准歧义防线: 供应商试标合格率跃升至 90%+', { x: 0.5, y: 2.0, fontSize: 18, color: 'FFFFFF' });
-
-  // Slide 10: Assets
-  let slide10 = pptx.addSlide();
-  slide10.addText('组织资产沉淀', { x: 0.5, y: 0.3, fontSize: 32, bold: true });
-  slide10.addText('团队知识库: 五维量化评估指标\n协作效率法则: 项目路由与异常阻断机制', { x: 0.5, y: 2.0, fontSize: 18 });
-
-  // Slide 11: Future
-  let slide11 = pptx.addSlide();
-  slide11.background = { color: '111827' };
-  slide11.addText('未来战略蓝图', { x: 0.5, y: 0.3, fontSize: 32, bold: true, color: 'FFFFFF' });
-  slide11.addText('1. 多模态与多视角数据深耕\n2. 质寻源管线升级\n3. 供应商能力认证体系进阶', { x: 0.5, y: 1.5, fontSize: 16, color: 'FFFFFF' });
-  slide11.addText('闫睿琛 | AIGC Data Architect', { x: 6.5, y: 4.5, fontSize: 18, align: 'right', bold: true, color: '00E5FF' });
-
-  pptx.writeFile({ fileName: 'Qwen_2026_Strategic_Report.pptx' });
-};
 
 // --- Main App ---
 
@@ -867,16 +862,6 @@ export default function App() {
       <Slide9 />
       <Slide10 />
       <Slide11 />
-
-      {/* PPT Export Button */}
-      <button 
-        onClick={exportToPpt}
-        className="fixed left-8 bottom-8 z-50 p-4 bg-brand-blue text-white rounded-full shadow-lg hover:scale-110 transition-transform flex items-center gap-2 group"
-        title="Download PPT"
-      >
-        <Download size={20} />
-        <span className="max-w-0 overflow-hidden group-hover:max-w-xs transition-all duration-500 whitespace-nowrap text-xs font-bold uppercase tracking-widest">Download PPT</span>
-      </button>
 
       {/* Navigation Indicator */}
       <div className="fixed right-8 top-1/2 -translate-y-1/2 z-50 hidden md:flex flex-col gap-4">
