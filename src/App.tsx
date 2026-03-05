@@ -62,10 +62,10 @@ const Capsule = ({ children, className = "", ...props }: { children: React.React
 );
 
 const SectionTitle = ({ title, subtitle, titleColor = "text-ink-primary" }: { title: string; subtitle?: string; titleColor?: string }) => (
-  <div className="mb-16">
-    <h2 className={`display-title mb-4 ${titleColor}`}>{title}</h2>
-    {subtitle && <p className="text-[11px] uppercase tracking-[0.4em] text-brand-blue font-bold">{subtitle}</p>}
-    <div className="minimal-line mt-10 opacity-10" />
+  <div className="mb-8">
+    <h2 className={`display-title mb-2 ${titleColor}`}>{title}</h2>
+    {subtitle && <p className="text-[10px] uppercase tracking-[0.3em] text-brand-blue font-bold">{subtitle}</p>}
+    <div className="minimal-line mt-6 opacity-10" />
   </div>
 );
 
@@ -284,49 +284,49 @@ const Slide3 = () => (
     <div className="slide-content z-10">
       <SectionTitle title="关于我" subtitle="Experience & Portfolio" titleColor="text-white" />
       
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-12">
-        <div className="space-y-8">
-          <h3 className="text-xs font-bold uppercase tracking-[0.3em] text-brand-cyan mb-8">职场实战 / Experience</h3>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-4">
+        <div className="space-y-6">
+          <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-brand-cyan mb-4">职场实战 / Experience</h3>
           {[
             { company: "科大讯飞 | 讯飞星火", role: "校招生", period: "2024.07-2025.03", desc: "主导C端产品实现0到1的百万级生态矩阵搭建。" },
             { company: "海康威视 | 萤石", role: "产品经理/用研实习", period: "2024.08-12", desc: "主导萤石云APP竞品分析与多款新型设备体验优化。" },
             { company: "网易游戏 | 雷火", role: "用户研究实习", period: "2024.04-08", desc: "深入用户体验中心，支撑千万级爆款产品的美学 and 游戏体验重塑。" }
           ].map((exp, i) => (
-            <div key={i} className="group relative pl-8 border-l border-white/10 hover:border-brand-cyan transition-colors">
+            <div key={i} className="group relative pl-6 border-l border-white/10 hover:border-brand-cyan transition-colors">
               <div className="absolute left-[-4px] top-0 w-2 h-2 rounded-full bg-white/20 group-hover:bg-brand-cyan transition-colors" />
-              <div className="flex justify-between items-start mb-2">
-                <h4 className="text-lg font-bold text-white">{exp.company}</h4>
-                <span className="text-[10px] font-mono text-white/40">{exp.period}</span>
+              <div className="flex justify-between items-start mb-1">
+                <h4 className="text-base font-bold text-white">{exp.company}</h4>
+                <span className="text-[9px] font-mono text-white/40">{exp.period}</span>
               </div>
-              <p className="text-xs font-bold text-brand-cyan uppercase tracking-widest mb-2">{exp.role}</p>
-              <p className="text-sm text-white/60 leading-relaxed">{exp.desc}</p>
+              <p className="text-[9px] font-bold text-brand-cyan uppercase tracking-widest mb-1">{exp.role}</p>
+              <p className="text-xs text-white/60 leading-relaxed">{exp.desc}</p>
             </div>
           ))}
         </div>
 
-        <div className="space-y-12">
+        <div className="space-y-8">
           <div>
-            <h3 className="text-xl font-black uppercase tracking-tight text-white mb-8">艺术积淀 / Awards & Exhibitions</h3>
-            <div className="space-y-6">
-              <div className="bento-card-dark">
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="p-3 bg-brand-blue/20 rounded-xl text-brand-blue">
-                    <Award size={24} />
+            <h3 className="text-lg font-black uppercase tracking-tight text-white mb-6">艺术积淀 / Awards & Exhibitions</h3>
+            <div className="space-y-4">
+              <div className="bento-card-dark p-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="p-2 bg-brand-blue/20 rounded-lg text-brand-blue">
+                    <Award size={20} />
                   </div>
-                  <h4 className="text-lg font-black uppercase tracking-tight text-white">Awards (AIGC)</h4>
+                  <h4 className="text-base font-black uppercase tracking-tight text-white">Awards (AIGC)</h4>
                 </div>
-                <p className="text-[13px] text-white leading-relaxed">
+                <p className="text-[12px] text-white/80 leading-relaxed">
                   通义万相入围奖、Vidu AI视觉单元二等奖、阿里通义首尾帧挑战赛二等奖及人气奖、WANACE 2.1优秀奖、华为故事接龙优秀奖、复新全球影像大赛入围、AAIA入围、海螺AI×上戏电影节展出。
                 </p>
               </div>
-              <div className="bento-card-dark">
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="p-3 bg-brand-cyan/20 rounded-xl text-brand-cyan">
-                    <Camera size={24} />
+              <div className="bento-card-dark p-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="p-2 bg-brand-cyan/20 rounded-lg text-brand-cyan">
+                    <Camera size={20} />
                   </div>
-                  <h4 className="text-lg font-black uppercase tracking-tight text-white">Photography Exhibitions</h4>
+                  <h4 className="text-base font-black uppercase tracking-tight text-white">Photography Exhibitions</h4>
                 </div>
-                <p className="text-[13px] text-white leading-relaxed">
+                <p className="text-[12px] text-white/80 leading-relaxed">
                   法国巴黎卢浮宫艺术周参展（Chinese 100）。中国龙奖（摄影类铜奖）、平遥国际摄影大展、丽水摄影展、FIAP世界摄影人大会、第十五届中国摄影艺术节参展、上海富士x-space、小红书线上摄影展、杭州天目里 屋书店、北京青年艺术100等多地参展。
                 </p>
               </div>
@@ -335,9 +335,9 @@ const Slide3 = () => (
         </div>
       </div>
 
-      <div className="mt-auto flex flex-col md:flex-row justify-between items-end gap-12">
-        <div className="flex items-center gap-8 w-full md:w-auto">
-          <div className="w-full md:w-[400px]">
+      <div className="mt-4 flex flex-col md:flex-row justify-between items-end gap-8">
+        <div className="flex items-center gap-6 w-full md:w-auto">
+          <div className="w-full md:w-[360px]">
             <LinkPreviewCard 
               title="Personal Portfolio" 
               description="Explore full works and creative journey"
@@ -348,7 +348,6 @@ const Slide3 = () => (
           </div>
         </div>
         <div className="text-right shrink-0">
-          <p className="text-[10px] uppercase tracking-[0.5em] text-brand-cyan font-bold mb-3">REMARK</p>
           <p className="text-2xl font-black tracking-tight text-white">AIGC导演，摄影艺术家，互联网人</p>
         </div>
       </div>
